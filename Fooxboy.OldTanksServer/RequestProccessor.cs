@@ -8,7 +8,7 @@ namespace Fooxboy.OldTanksServer
     {
         public string Start(string message)
         {
-
+            return null;
         }
     }
 }
