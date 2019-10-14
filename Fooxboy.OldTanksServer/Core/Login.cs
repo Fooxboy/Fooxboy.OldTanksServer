@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using System.Text;
 
 namespace Fooxboy.OldTanksServer.Core
 {
-    public class Login : IRequest
+    public class Login
     {
-        public string Trigger => "login";
-
+        private Socket _socket;
+        public Login(Socket socket)
+        {
+            _socket = socket;
+        }
         public string Execute(List<string> message)
         {
             string typeLogin = message[1];

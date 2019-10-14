@@ -7,13 +7,13 @@ using System.Text;
 
 namespace Fooxboy.OldTanksServer
 {
-    public class SocketServerListener
+    public class SocketConnectListener
     {
         private Socket _serverSocket;
         private IPEndPoint _ipPoint;
         private ILoggerServer _logger;
-        public event NewRequestDelegate NewRequestEvent;
-        public SocketServerListener(string ip, int port, ILoggerServer logger)
+        public event NewConnectDelegate NewConnectEvent;
+        public SocketConnectListener(string ip, int port, ILoggerServer logger)
         {
             var address = ip == "localhost" ? Dns.GetHostEntry(ip).AddressList[0] : IPAddress.Parse(ip);
             _ipPoint = new IPEndPoint(address, port);
@@ -54,17 +54,13 @@ namespace Fooxboy.OldTanksServer
                     while (handler.Available > 0);
                     try
                     {
-                        var message = NewRequestEvent?.Invoke(builder.ToString());
+                        var message = NewConnectEvent?.Invoke(builder.ToString(), handler);
                         data = Encoding.Unicode.GetBytes(message);
                         handler.Send(data);
                     }catch(Exception e)
                     {
                         _logger.Error($"Произошла ошибка при отправке ответа: {e}");
                     }
-                    
-                    //.
-                    handler.Shutdown(SocketShutdown.Both);
-                    handler.Close();
                 }catch(Exception e)
                 {
                     _logger.Error($"Произошла ошибка при получении запроса: {e}") ;

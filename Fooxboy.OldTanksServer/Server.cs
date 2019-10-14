@@ -2,6 +2,8 @@
 using Fooxboy.OldTanksServer.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 
 namespace Fooxboy.OldTanksServer
@@ -25,11 +27,15 @@ namespace Fooxboy.OldTanksServer
         {
             Console.WriteLine("Old Tanks Server 2019 by Fooxboy");
             _logger.Info("Запуск сервера...");
-            var listener = new SocketServerListener(_ip, _port, _logger);
-            listener.NewRequestEvent += Listener_NewRequestEvent;
+            var listener = new SocketConnectListener(_ip, _port, _logger);
+            listener.NewConnectEvent += NewConnect;
             Server.RequestsCommands.Add(new Login());
         }
 
-        private string Listener_NewRequestEvent(string request)=> _proccessor.Start(request);
+        private string NewConnect(string request, Socket socket)
+        {
+            var login = new Login();
+            return login.Execute(request.Split(";").ToList());
+        }
     }
 }
