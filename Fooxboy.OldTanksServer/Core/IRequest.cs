@@ -7,6 +7,6 @@ namespace Fooxboy.OldTanksServer.Core
     public interface IRequest
     {
         string Trigger { get; }
-        public string Execute(List<string> message);
+        public string Execute(List<string> message, Lobby lobby);
     }
 }
