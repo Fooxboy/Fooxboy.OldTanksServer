@@ -62,6 +62,7 @@ namespace Fooxboy.OldTanksServer
                         _logger.Error($"Произошла ошибка при отправке ответа: {e}");
                     }
                     
+                    //.
                     handler.Shutdown(SocketShutdown.Both);
                     handler.Close();
                 }catch(Exception e)
