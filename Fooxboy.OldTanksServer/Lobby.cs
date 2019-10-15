@@ -1,26 +1,33 @@
-﻿using Fooxboy.OldTanksServer.Models;
+﻿using Fooxboy.OldTanksServer.Helpers;
+using Fooxboy.OldTanksServer.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Fooxboy.OldTanksServer
 {
-    public class Lobby
+    public class Lobby: SocketHelper
     {
         private readonly User _user;
+        private readonly Garage _garage;
         private readonly Socket _socket;
         private readonly RequestProccessor _proccessor;
-        public Lobby(User currentUser, Socket socket)
+        public Lobby(User currentUser, Garage garage, Socket socket):base(socket)
         {
             this._user = currentUser;
             this._socket = socket;
+            this._garage = garage;
             this._proccessor = new RequestProccessor();
         }
 
         public void LoadLobby()
         {
-
+            Task.Run(()=> ListerNewRequest());
+            var message = $"lobby;{_user.Nickname};{_garage.Crystalls};{_garage.Score};номер текущего корпуса;номер текущей башни;номер краски";
+            this.Send(message);
+            if (_user.IsSpector) this.Send("spector;");
         }
 
         public void ListerNewRequest()
@@ -38,7 +45,8 @@ namespace Fooxboy.OldTanksServer
                 }
                 while (_socket.Available > 0);
                 var message = builder.ToString();
-                _proccessor.Start(message);
+                var response = _proccessor.Start(message);
+                this.Send(response);
             }
             
         }

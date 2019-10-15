@@ -4,14 +4,12 @@ using System.Text;
 
 namespace Fooxboy.OldTanksServer.Core
 {
-    public class JoinToBattle : IRequest
+    public class GetPlayers : IRequest
     {
-        public string Trigger => "enb";
+        public string Trigger => "getp";
 
         public string Execute(List<string> message, Lobby lobby)
         {
-            var battleId = Int64.Parse(message[1]);
-            var command = Int32.Parse(message[2]);
             throw new NotImplementedException();
         }
     }
