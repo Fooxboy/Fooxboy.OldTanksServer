@@ -4,14 +4,13 @@ using System.Text;
 
 namespace Fooxboy.OldTanksServer.Core
 {
-    public class Chat : IRequest
+    public class InitGarage : IRequest
     {
-        public string Trigger => "chat";
+        public string Trigger => "initg";
 
         public string Execute(List<string> message, Lobby lobby)
         {
-            var text = message[1];
-            //todo: обработка сообщения в чате.
+            throw new NotImplementedException();
         }
     }
 }

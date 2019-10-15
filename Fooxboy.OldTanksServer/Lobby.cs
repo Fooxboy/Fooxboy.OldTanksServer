@@ -10,40 +10,40 @@ namespace Fooxboy.OldTanksServer
 {
     public class Lobby: SocketHelper
     {
-        private readonly User _user;
-        private readonly Garage _garage;
-        private readonly Socket _socket;
+        public readonly User User;
+        public readonly Garage Garage;
+        public readonly Socket Socket;
         private readonly RequestProccessor _proccessor;
         public Lobby(User currentUser, Garage garage, Socket socket):base(socket)
         {
-            this._user = currentUser;
-            this._socket = socket;
-            this._garage = garage;
+            this.User = currentUser;
+            this.Socket = socket;
+            this.Garage = garage;
             this._proccessor = new RequestProccessor();
         }
 
         public void LoadLobby()
         {
             Task.Run(()=> ListerNewRequest());
-            var message = $"lobby;{_user.Nickname};{_garage.Crystalls};{_garage.Score};номер текущего корпуса;номер текущей башни;номер краски";
+            var message = $"lobby;{User.Nickname};{Garage.Crystalls};{Garage.Score};номер текущего корпуса;номер текущей башни;номер краски";
             this.Send(message);
-            if (_user.IsSpector) this.Send("spector;");
+            if (User.IsSpector) this.Send("spector;");
         }
 
         public void ListerNewRequest()
         {
             while(true)
             {
-                if (_socket.Available == 0) return;
+                if (Socket.Available == 0) return;
                 var builder = new StringBuilder();
                 int bytes = 0;
                 byte[] data = new byte[256];
                 do
                 {
-                    bytes = _socket.Receive(data);
+                    bytes = Socket.Receive(data);
                     builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
                 }
-                while (_socket.Available > 0);
+                while (Socket.Available > 0);
                 var message = builder.ToString();
                 var response = _proccessor.Start(message);
                 this.Send(response);
