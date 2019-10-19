@@ -29,12 +29,11 @@ namespace Fooxboy.OldTanksServer
             _logger.Info("Запуск сервера...");
             var listener = new SocketConnectListener(_ip, _port, _logger);
             listener.NewConnectEvent += NewConnect;
-            Server.RequestsCommands.Add(new Login());
         }
 
         private string NewConnect(string request, Socket socket)
         {
-            var login = new Login();
+            var login = new Login(socket);
             return login.Execute(request.Split(";").ToList());
         }
     }

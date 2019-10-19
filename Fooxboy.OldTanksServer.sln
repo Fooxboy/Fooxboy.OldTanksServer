@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fooxboy.OldTanksServer", "Fooxboy.OldTanksServer\Fooxboy.OldTanksServer.csproj", "{8F7244A0-2B8D-442E-B136-3557BC73FF05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fooxboy.OldTanksServer", "Fooxboy.OldTanksServer\Fooxboy.OldTanksServer.csproj", "{8F7244A0-2B8D-442E-B136-3557BC73FF05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fooxboy.OldTanksServer.Shell.Console", "Fooxboy.OldTanksServer.Shell.Console\Fooxboy.OldTanksServer.Shell.Console.csproj", "{6219C873-311F-42D3-86BD-8C43E1F12A22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{8F7244A0-2B8D-442E-B136-3557BC73FF05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F7244A0-2B8D-442E-B136-3557BC73FF05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F7244A0-2B8D-442E-B136-3557BC73FF05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6219C873-311F-42D3-86BD-8C43E1F12A22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6219C873-311F-42D3-86BD-8C43E1F12A22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6219C873-311F-42D3-86BD-8C43E1F12A22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6219C873-311F-42D3-86BD-8C43E1F12A22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
