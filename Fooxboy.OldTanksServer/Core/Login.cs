@@ -1,4 +1,5 @@
 ﻿using Fooxboy.OldTanksServer.Helpers;
+using Fooxboy.OldTanksServer.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
@@ -13,7 +14,7 @@ namespace Fooxboy.OldTanksServer.Core
         {
             _socket = socket;
         }
-        public void Execute(List<string> message)
+        public LoginResult Execute(List<string> message)
         {
             string typeLogin = message[1];
             string nickname = message[2];

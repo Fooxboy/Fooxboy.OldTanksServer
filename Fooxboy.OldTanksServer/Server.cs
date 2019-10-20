@@ -32,11 +32,11 @@ namespace Fooxboy.OldTanksServer
 
         private void NewConnect(string request, Socket socket)
         {
-            Task.Run(() =>
+            if (request.Split(";")[0] == "login")
             {
-                var login = new Login(socket);
-                login.Execute(request.Split(";").ToList());
-            });
+                var response = new Login(socket).Execute(request.Split(";").ToList());
+            }
+
             
         }
     }
