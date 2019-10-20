@@ -13,14 +13,12 @@ namespace Fooxboy.OldTanksServer
         private readonly ILoggerServer _logger;
         private readonly string _ip;
         private readonly int _port;
-        private readonly RequestProccessor _proccessor;
         public static readonly List<IRequest> RequestsCommands = new List<IRequest>();
         public Server(ILoggerServer logger, string ip, int port)
         {
             this._logger = logger;
             this._ip = ip;
             this._port = port;
-            this._proccessor = new RequestProccessor();
         }
 
         public void Start()

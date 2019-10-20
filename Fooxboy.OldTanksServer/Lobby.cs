@@ -19,7 +19,7 @@ namespace Fooxboy.OldTanksServer
             this.User = currentUser;
             this.Socket = socket;
             this.Garage = garage;
-            this._proccessor = new RequestProccessor();
+            this._proccessor = new RequestProccessor(socket, this);
         }
 
         public void LoadLobby()

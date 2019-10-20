@@ -11,6 +11,6 @@ namespace Fooxboy.OldTanksServer.Interfaces
         long? Level { get; }
         List<long> Prices { get; }
         List<long> Ranks { get; }
-        List<string> Params { get }
+        List<string> Params { get; }
     }
 }
