@@ -34,7 +34,11 @@ namespace Fooxboy.OldTanksServer
         {
             if (request.Split(";")[0] == "login")
             {
-                var response = new Login(socket).Execute(request.Split(";").ToList());
+                var result = new Login(socket).Execute(request.Split(";").ToList());
+                if(result.Status)
+                {
+
+                }
             }
 
             
