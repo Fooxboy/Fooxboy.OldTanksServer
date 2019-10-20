@@ -1,5 +1,6 @@
 ﻿using Fooxboy.OldTanksServer.Core;
 using Fooxboy.OldTanksServer.Interfaces;
+using Fooxboy.OldTanksServer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,14 +33,20 @@ namespace Fooxboy.OldTanksServer
 
         private void NewConnect(string request, Socket socket)
         {
-            if (request.Split(";")[0] == "login")
+            Task.Run(() =>
             {
-                var result = new Login(socket).Execute(request.Split(";").ToList());
-                if(result.Status)
+                if (request.Split(";")[0] == "login")
                 {
-
+                    var result = new Login(socket).Execute(request.Split(";").ToList());
+                    if (result.Status)
+                    {
+                        User user = null;
+                        Garage garage = null;
+                        var lobby = new Lobby(user, garage, socket)
+                    }
                 }
-            }
+            });
+           
 
             
         }

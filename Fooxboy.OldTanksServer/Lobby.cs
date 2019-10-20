@@ -1,4 +1,5 @@
 ﻿using Fooxboy.OldTanksServer.Helpers;
+using Fooxboy.OldTanksServer.Interfaces;
 using Fooxboy.OldTanksServer.Models;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,8 @@ namespace Fooxboy.OldTanksServer
         public readonly Garage Garage;
         public readonly Socket Socket;
         private readonly RequestProccessor _proccessor;
-        public Lobby(User currentUser, Garage garage, Socket socket):base(socket)
+        private readonly ILoggerServer _logger;
+        public Lobby(User currentUser, Garage garage, Socket socket, ILoggerServer log):base(socket)
         {
             this.User = currentUser;
             this.Socket = socket;
