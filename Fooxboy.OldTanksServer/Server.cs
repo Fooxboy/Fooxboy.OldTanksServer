@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Fooxboy.OldTanksServer
 {
@@ -29,10 +30,14 @@ namespace Fooxboy.OldTanksServer
             listener.NewConnectEvent += NewConnect;
         }
 
-        private string NewConnect(string request, Socket socket)
+        private void NewConnect(string request, Socket socket)
         {
-            var login = new Login(socket);
-            return login.Execute(request.Split(";").ToList());
+            Task.Run(() =>
+            {
+                var login = new Login(socket);
+                login.Execute(request.Split(";").ToList());
+            });
+            
         }
     }
 }

@@ -1,24 +1,26 @@
-﻿using System;
+﻿using Fooxboy.OldTanksServer.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
 
 namespace Fooxboy.OldTanksServer.Core
 {
-    public class Login
+    public class Login:SocketHelper
     {
         private Socket _socket;
-        public Login(Socket socket)
+        public Login(Socket socket):base(socket)
         {
             _socket = socket;
         }
-        public string Execute(List<string> message)
+        public void Execute(List<string> message)
         {
             string typeLogin = message[1];
             string nickname = message[2];
             string password = message[3];
 
-            return null;
+            Send("login;");
+            //return null;
             //todo: сверяем логин  и пароль и регистрируем, если надо.
             //throw new NotImplementedException();
         }

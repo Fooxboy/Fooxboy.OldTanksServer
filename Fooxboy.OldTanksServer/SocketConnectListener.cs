@@ -52,15 +52,6 @@ namespace Fooxboy.OldTanksServer
                         builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
                     }
                     while (handler.Available > 0);
-                    try
-                    {
-                        var message = NewConnectEvent?.Invoke(builder.ToString(), handler);
-                        data = Encoding.Unicode.GetBytes(message);
-                        handler.Send(data);
-                    }catch(Exception e)
-                    {
-                        _logger.Error($"Произошла ошибка при отправке ответа: {e}");
-                    }
                 }catch(Exception e)
                 {
                     _logger.Error($"Произошла ошибка при получении запроса: {e}") ;
