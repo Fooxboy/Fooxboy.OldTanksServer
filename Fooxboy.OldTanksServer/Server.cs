@@ -29,6 +29,7 @@ namespace Fooxboy.OldTanksServer
             Console.WriteLine("Old Tanks Server 2019 by Fooxboy");
             _logger.Info("Запуск сервера...");
             HullHelper.GetHelper().InitHulls();
+            TurretHelper.GetHelper().InitTurrets();
             var listener = new SocketConnectListener(_ip, _port, _logger);
             listener.NewConnectEvent += NewConnect;
         }
@@ -44,13 +45,10 @@ namespace Fooxboy.OldTanksServer
                     {
                         User user = null;
                         Garage garage = null;
-                        var lobby = new Lobby(user, garage, socket)
+                        var lobby = new Lobby(user, garage, socket, _logger);
                     }
                 }
             });
-           
-
-            
         }
     }
 }
