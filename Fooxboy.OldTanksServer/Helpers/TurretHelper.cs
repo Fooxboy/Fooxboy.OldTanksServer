@@ -49,7 +49,7 @@ namespace Fooxboy.OldTanksServer.Helpers
             return result;
         }
 
-        public string ConvertListModelToListString(List<IHull> models)
+        public string ConvertListModelToListString(List<ITurret> models)
         {
             var resultString = string.Empty;
             foreach (var model in models) resultString += $"{model.ConvertToStringDatabase()}&";
