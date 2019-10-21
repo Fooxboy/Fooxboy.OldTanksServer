@@ -1,12 +1,15 @@
 ﻿using Fooxboy.OldTanksServer.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Fooxboy.OldTanksServer.Models
 {
     public class Garage
     {
+        [Key]
+        public long UserId { get; set; }
         public long Crystalls { get; set; }
         public long Score { get; set; }
         public List<IHull> Hulls { get; set; }

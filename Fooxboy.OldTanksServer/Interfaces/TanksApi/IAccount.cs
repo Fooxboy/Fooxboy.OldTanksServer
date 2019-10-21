@@ -12,7 +12,6 @@ namespace Fooxboy.OldTanksServer.Interfaces.TanksApi
         string GetNicknameFromId(long userId);
         long GetIdFromNickname(string nickname);
         User GetUserFromId(long id);
-        Garage GetUserGarageFromId(long id);
-
+        bool SetUser(User user);
     }
 }
