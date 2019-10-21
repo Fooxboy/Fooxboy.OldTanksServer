@@ -31,7 +31,7 @@ namespace Fooxboy.OldTanksServer.Helpers
             return Colormaps.Single(c => c.Id == Int64.Parse(array[0]));
         }
 
-        public string ConvertListStringToListModel(List<IColormap> colormaps)
+        public string ConvertListModelToListString(List<IColormap> colormaps)
         {
             var resultString = string.Empty;
             foreach (var model in colormaps) resultString += $"{ConvertModelToString(model)}&";
@@ -45,5 +45,6 @@ namespace Fooxboy.OldTanksServer.Helpers
             foreach (var model in array) result.Add(ConvertStringToModel(model));
             return result;
         }
+
     }
 }

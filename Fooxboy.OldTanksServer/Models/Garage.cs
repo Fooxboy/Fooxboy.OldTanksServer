@@ -24,7 +24,11 @@ namespace Fooxboy.OldTanksServer.Models
             get => TurretHelper.GetHelper().ConvertListModelToListString(Turrets);
             set => Turrets = TurretHelper.GetHelper().ConvertListStringToListModel(value);
         }
-        public string ListColormapsString { get; set; }
+        public string ListColormapsString
+        {
+            get => ColormapHelper.GetHelper().ConvertListModelToListString(Colormaps);
+            set => Colormaps = ColormapHelper.GetHelper().ConvertListStringToListModel(value);
+        }
         public string ListNumericsString { get; set; }
         public string CurrentHullString
         {
@@ -36,7 +40,11 @@ namespace Fooxboy.OldTanksServer.Models
             get => CurrentTurret.ConvertToStringDatabase();
             set => CurrentTurret = TurretHelper.GetHelper().ConvertStringToModel(value);
         }
-        public string CurrentColormapString { get; set; }
+        public string CurrentColormapString
+        {
+            get => ColormapHelper.GetHelper().ConvertModelToString(CurrentColormap);
+            set => CurrentColormap = ColormapHelper.GetHelper().ConvertStringToModel(value);
+        }
         [NotMapped]
         public List<IHull> Hulls { get; set; }
         [NotMapped]
