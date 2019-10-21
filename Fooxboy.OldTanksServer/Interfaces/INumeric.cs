@@ -8,5 +8,6 @@ namespace Fooxboy.OldTanksServer.Interfaces
     {
         public long Price { get; set; }
         public long Rank { get; set; }
+        string ConvertToStringDatabase();
     }
 }

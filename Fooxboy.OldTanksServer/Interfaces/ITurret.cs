@@ -12,5 +12,6 @@ namespace Fooxboy.OldTanksServer.Interfaces
         List<long> Prices { get; }
         List<long> Ranks { get; }
         List<string> Params { get; }
+        string ConvertToStringDatabase();
     }
 }

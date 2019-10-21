@@ -18,5 +18,6 @@ namespace Fooxboy.OldTanksServer.Models.Turrets
         public List<long> Ranks => new List<long> { 4, 5, 7, 9};
 
         public List<string> Params => new List<string> {"2;m0", "2;m1", "2;m2", "2;m3"};
+        public string ConvertToStringDatabase() => $"{Id};{Level.Value};{Params[Convert.ToInt32(Level.Value)]};";
     }
 }

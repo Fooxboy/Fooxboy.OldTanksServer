@@ -18,5 +18,6 @@ namespace Fooxboy.OldTanksServer.Models.Hulls
         {
             return $"Корпус: {Name}, ID: {Id}, Уровень: {Level}";
         }
+        public string ConvertToStringDatabase() => $"{Id};{Level.Value};{Healths[Convert.ToInt32(Level.Value)]};";
     }
 }

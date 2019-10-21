@@ -6,5 +6,6 @@ namespace Fooxboy.OldTanksServer.Interfaces
 {
     public interface IColormap
     {
+        string ConvertToStringDatabase();
     }
 }

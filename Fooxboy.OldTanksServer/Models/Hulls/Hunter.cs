@@ -18,5 +18,6 @@ namespace Fooxboy.OldTanksServer.Models.Hulls
         public List<long> Healths => new List<long>() { 45, 53, 68, 90};
 
         public List<long> Ranks => new List<long>() { 2, 3, 5, 7 };
+        public string ConvertToStringDatabase() => $"{Id};{Level.Value};{Healths[Convert.ToInt32(Level.Value)]};";
     }
 }
