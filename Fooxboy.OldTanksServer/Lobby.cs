@@ -15,13 +15,14 @@ namespace Fooxboy.OldTanksServer
         public readonly Garage Garage;
         public readonly Socket Socket;
         private readonly RequestProccessor _proccessor;
-        private readonly ILoggerServer _logger;
-        public Lobby(User currentUser, Garage garage, Socket socket, ILoggerServer log):base(socket)
+        public readonly ILoggerServer Logger;
+        public Lobby(User currentUser, Garage garage, Socket socket, ILoggerServer logger):base(socket)
         {
             this.User = currentUser;
             this.Socket = socket;
             this.Garage = garage;
             this._proccessor = new RequestProccessor(socket, this);
+            this.Logger = logger;
         }
 
         public void LoadLobby()
