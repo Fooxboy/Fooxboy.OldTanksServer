@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -33,6 +34,22 @@ namespace Fooxboy.OldTanksServer.Helpers
             var array = modelString.Split(";");
             var model = Hulls.Single(h => h.Id == Int64.Parse(array[0]));
             model.Level = Int64.Parse(array[1]);
+            return model;
+        }
+
+        public List<IHull> ConvertListStringToListModel(string modelsString)
+        {
+            var array = modelsString.Split("&");
+            List<IHull> result = new List<IHull>();
+            foreach (var model in array) result.Add(ConvertStringToModel(model));
+            return result;
+        }
+
+        public string ConvertListModelToListString(List<IHull> models)
+        {
+            var resultString = string.Empty;
+            foreach(var model in models) resultString += $"{model.ConvertToStringDatabase()}&";
+            return resultString;
         }
     }
 }
