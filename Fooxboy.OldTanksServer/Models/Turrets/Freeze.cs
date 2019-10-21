@@ -11,7 +11,7 @@ namespace Fooxboy.OldTanksServer.Models.Turrets
 
         public string Name => $"Фриз М{Level}";
 
-        public long? Level => null;
+        public long? Level { get; set; }
 
         public List<long> Prices => new List<long>() { 550, 1700, 5000, 1500};
 

@@ -8,7 +8,7 @@ namespace Fooxboy.OldTanksServer.Interfaces
     {
         long Id { get; }
         string Name { get; }
-        long? Level { get; }
+        long? Level { get; set; }
         List<long> Prices { get; }
         List<long> Ranks { get; }
         List<long> Healths { get; }

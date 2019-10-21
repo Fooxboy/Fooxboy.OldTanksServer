@@ -11,7 +11,7 @@ namespace Fooxboy.OldTanksServer.Models.Hulls
 
         public string Name => $"Титан  М{Level.Value}";
 
-        public long? Level => null;
+        public long? Level { get; set; }
 
         public List<long> Prices => new List<long>() {20, 100, 300, 900 };
 
