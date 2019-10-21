@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fooxboy.OldTanksServer.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,6 +11,8 @@ namespace Fooxboy.OldTanksServer.Interfaces.TanksApi
         bool CheckRegister(long userId);
         string GetNicknameFromId(long userId);
         long GetIdFromNickname(string nickname);
+        User GetUserFromId(long id);
+        Garage GetUserGarageFromId(long id);
 
     }
 }

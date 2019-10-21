@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Fooxboy.OldTanksServer.Interfaces.TanksApi;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Fooxboy.OldTanksServer.TanksApi
 {
-    public class Account
+    public class Account:IAccount
     {
         public bool Register(string nickname, string password)
         {
