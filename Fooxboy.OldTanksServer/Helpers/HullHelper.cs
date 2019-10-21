@@ -3,6 +3,7 @@ using Fooxboy.OldTanksServer.Models.Hulls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -57,5 +58,7 @@ namespace Fooxboy.OldTanksServer.Helpers
             foreach(var model in models) resultString += $"{model.ConvertToStringDatabase()}&";
             return resultString;
         }
+
+        public long GetCurrentHull(IHull hull) => (hull.Level.Value + hull.Id) + hull.Id * 3;
     }
 }

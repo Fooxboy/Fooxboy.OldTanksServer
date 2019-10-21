@@ -55,5 +55,7 @@ namespace Fooxboy.OldTanksServer.Helpers
             foreach (var model in models) resultString += $"{model.ConvertToStringDatabase()}&";
             return resultString;
         }
+
+        public long GetCurrentTurret(ITurret turret) => (turret.Level.Value + turret.Id) + turret.Id * 3;
     }
 }

@@ -28,7 +28,8 @@ namespace Fooxboy.OldTanksServer
         public void LoadLobby()
         {
             Task.Run(()=> ListerNewRequest());
-            var message = $"lobby;{User.Nickname};{Garage.Crystalls};{Garage.Score};номер текущего корпуса;номер текущей башни;номер краски";
+            var message =
+                $"lobby;{User.Nickname};{Garage.Crystalls};{Garage.Score};{HullHelper.GetHelper().GetCurrentHull(Garage.CurrentHull)};{TurretHelper.GetHelper().GetCurrentTurret(Garage.CurrentTurret)};{Garage.CurrentColormap.Id}";
             this.Send(message);
             if (User.IsSpector) this.Send("spector;");
         }
