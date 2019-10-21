@@ -1,4 +1,5 @@
 ﻿using Fooxboy.OldTanksServer.Core;
+using Fooxboy.OldTanksServer.Helpers;
 using Fooxboy.OldTanksServer.Interfaces;
 using Fooxboy.OldTanksServer.Models;
 using System;
@@ -27,6 +28,7 @@ namespace Fooxboy.OldTanksServer
         {
             Console.WriteLine("Old Tanks Server 2019 by Fooxboy");
             _logger.Info("Запуск сервера...");
+            HullHelper.GetHelper().InitHulls();
             var listener = new SocketConnectListener(_ip, _port, _logger);
             listener.NewConnectEvent += NewConnect;
         }

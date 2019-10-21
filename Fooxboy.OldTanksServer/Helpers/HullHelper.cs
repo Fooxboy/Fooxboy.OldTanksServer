@@ -1,4 +1,5 @@
 ﻿using Fooxboy.OldTanksServer.Interfaces;
+using Fooxboy.OldTanksServer.Models.Hulls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,11 @@ namespace Fooxboy.OldTanksServer.Helpers
         public void InitHulls(params IHull[] hulls )
         {
             Hulls = hulls.ToList();
+        }
+
+        public void InitHulls()
+        {
+            InitHulls(new Dictator(), new Hornet(), new Hunter(), new Mamont(), new Titan(), new Viking(), new Wasp());
         }
 
         public IHull ConvertStringToModel(string modelString)
