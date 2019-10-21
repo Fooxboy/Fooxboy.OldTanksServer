@@ -1,5 +1,4 @@
 ﻿using Fooxboy.OldTanksServer.Models;
-using Fooxboy.OldTanksServer.TanksApi;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,8 +8,8 @@ namespace Fooxboy.OldTanksServer.Database
 {
     public class ServerDB : DbContext
     {
-        DbSet<User> Users { get; set; }
-        DbSet<Garage> Garages { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Garage> Garages { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data source=server.db");

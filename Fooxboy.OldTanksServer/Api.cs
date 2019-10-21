@@ -1,4 +1,5 @@
-﻿using Fooxboy.OldTanksServer.TanksApi;
+﻿using Fooxboy.OldTanksServer.Interfaces.TanksApi;
+using Fooxboy.OldTanksServer.TanksApi;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,10 +8,12 @@ namespace Fooxboy.OldTanksServer
 {
     public class Api
     {
-        public Api()
+        public Api(IAccount account, IGarage garage)
         {
-            Account = new Account();
+            Account = account?? new Account();
+            Garage = garage?? new Garage();
         }
-        public Account Account { get; }
+        public IAccount Account { get; }
+        public IGarage Garage { get; }
     }
 }
