@@ -71,6 +71,7 @@ namespace Fooxboy.OldTanksServer
 
         private void ClientDisonnect(Lobby lobby)
         {
+            _logger.Info($"Пользователь {lobby.User.Nickname} отключился от сервера.");
             OnlineUsers.Remove(lobby.User);
             Lobbys.Remove(lobby);
             //throw new NotImplementedException();
