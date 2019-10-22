@@ -18,6 +18,14 @@ namespace Fooxboy.OldTanksServer.TanksApi
             }
         }
 
+        public bool CheckRegister(string nickname)
+        {
+            using (var db = new Database.ServerDB())
+            {
+                return db.Users.Any(u => u.Nickname == nickname);
+            }
+        }
+
         public long GetIdFromNickname(string nickname)
         {
             using var db = new ServerDB();

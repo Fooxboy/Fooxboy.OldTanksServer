@@ -17,11 +17,14 @@ namespace Fooxboy.OldTanksServer
         private readonly string _ip;
         private readonly int _port;
         public static readonly List<IRequest> RequestsCommands = new List<IRequest>();
+        public List<User> OnlineUsers { get; }
+        public Api Api { get; }
         public Server(ILoggerServer logger, string ip, int port)
         {
             this._logger = logger;
             this._ip = ip;
             this._port = port;
+            Api = new Api();
         }
 
         public void Start()

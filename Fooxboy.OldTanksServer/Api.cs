@@ -8,7 +8,7 @@ namespace Fooxboy.OldTanksServer
 {
     public class Api
     {
-        public Api(IAccount account, IGarage garage)
+        public Api(IAccount account = null, IGarage garage= null)
         {
             Account = account?? new Account();
             Garage = garage?? new Garage();
