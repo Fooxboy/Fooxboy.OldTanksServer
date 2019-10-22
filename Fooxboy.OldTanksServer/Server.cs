@@ -56,6 +56,9 @@ namespace Fooxboy.OldTanksServer
                         var lobby = new Lobby(user, garage, socket, _logger);
                         Lobbys.Add(lobby);
                         lobby.LoadLobby();
+                    }else
+                    {
+                        var message = $"error;{result.Error};";
                     }
                 }
             });
