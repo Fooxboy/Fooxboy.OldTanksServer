@@ -56,12 +56,24 @@ namespace Fooxboy.OldTanksServer
                         var lobby = new Lobby(user, garage, socket, _logger);
                         Lobbys.Add(lobby);
                         lobby.LoadLobby();
+                        lobby.UserDisconnected += ClientDisonnect;
                     }else
                     {
                         var message = $"error;{result.Error};";
+                        var data = Encoding.Unicode.GetBytes(message);
+                        socket.Send(data);
+                        
                     }
+
                 }
             });
+        }
+
+        private void ClientDisonnect(Lobby lobby)
+        {
+            OnlineUsers.Remove(lobby.User);
+            Lobbys.Remove(lobby);
+            //throw new NotImplementedException();
         }
     }
 }
