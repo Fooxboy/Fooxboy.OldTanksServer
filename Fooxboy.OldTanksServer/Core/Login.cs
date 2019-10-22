@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Fooxboy.OldTanksServer.Core
@@ -47,6 +48,12 @@ namespace Fooxboy.OldTanksServer.Core
                 var user = _server.Api.Account.GetUserFromId(idUser);
                 if(user.Password == password)
                 {
+                    if(user.IsBanned)
+                    {
+                        result.Status = false;
+                        result.Error = "Ваш аккаунт был заблокирован.";
+                        return result;
+                    }
                     result.Status = true;
                     result.Id = idUser;
                     result.Nickname = nickname;
@@ -59,10 +66,45 @@ namespace Fooxboy.OldTanksServer.Core
                     result.Error = "Неверный логин или пароль.";
                     return result;
                 }
+            }else if(typeLogin == "2")
+            {
+                try
+                {
+                    if (_server.Api.Account.CheckRegister(nickname))
+                    {
+                        result.Status = false;
+                        result.Error = "Данный никнейм уже занят.";
+                        return result;
+                    }
+
+                    var status = _server.Api.Account.Register(nickname, password, "no");
+                    if(status)
+                    {
+                        result.Status = true;
+                        result.Nickname = nickname;
+                        result.Password = password;
+                        result.Token = "tokent";
+                        result.Id = 0;
+                        return result;
+                    }else
+                    {
+                        result.Status = false;
+                        result.Error = "Ошибка регистрации.";
+                        return result;
+                    }
+                }catch(Exception e)
+                {
+                    result.Status = false;
+                    result.Error = $"Произошла ошибка при регистрации: {e.Message}";
+                    return result;
+                }
+                
+            }else
+            {
+                result.Status = false;
+                result.Error = $"Неизвестный аргумент: {typeLogin}";
+                return result;
             }
-            //return null;
-            //todo: сверяем логин  и пароль и регистрируем, если надо.
-            //throw new NotImplementedException();
         }
 
         private bool CheckOnline(string nickname) => _server.OnlineUsers.Any(u => u.Nickname == nickname);

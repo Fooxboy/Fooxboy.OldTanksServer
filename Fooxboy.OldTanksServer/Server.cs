@@ -44,11 +44,11 @@ namespace Fooxboy.OldTanksServer
             {
                 if (request.Split(";")[0] == "login")
                 {
-                    var result = new Login(socket).Execute(request.Split(";").ToList());
+                    var result = new Login(socket, this).Execute(request.Split(";").ToList());
                     if (result.Status)
                     {
-                        User user = null;
-                        Garage garage = null;
+                        User user = Api.Account.GetUserFromId(result.Id);
+                        Garage garage = Api.Garage.GetGarageFromId(result.Id);
                         var lobby = new Lobby(user, garage, socket, _logger);
                     }
                 }
