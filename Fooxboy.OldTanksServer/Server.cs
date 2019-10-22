@@ -18,6 +18,7 @@ namespace Fooxboy.OldTanksServer
         private readonly int _port;
         public static readonly List<IRequest> RequestsCommands = new List<IRequest>();
         public List<User> OnlineUsers { get; }
+        public List<Lobby> Lobbys { get; }
         public Api Api { get; }
         public Server(ILoggerServer logger, string ip, int port)
         {
@@ -25,6 +26,8 @@ namespace Fooxboy.OldTanksServer
             this._ip = ip;
             this._port = port;
             Api = new Api();
+            OnlineUsers = new List<User>();
+            Lobbys = new List<Lobby>();
         }
 
         public void Start()
@@ -47,9 +50,12 @@ namespace Fooxboy.OldTanksServer
                     var result = new Login(socket, this).Execute(request.Split(";").ToList());
                     if (result.Status)
                     {
-                        User user = Api.Account.GetUserFromId(result.Id);
-                        Garage garage = Api.Garage.GetGarageFromId(result.Id);
+                        var user = Api.Account.GetUserFromId(result.Id);
+                        var garage = Api.Garage.GetGarageFromId(result.Id);
+                        this.OnlineUsers.Add(user);
                         var lobby = new Lobby(user, garage, socket, _logger);
+                        Lobbys.Add(lobby);
+                        lobby.LoadLobby();
                     }
                 }
             });
