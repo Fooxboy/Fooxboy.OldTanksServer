@@ -77,14 +77,14 @@ namespace Fooxboy.OldTanksServer.Core
                         return result;
                     }
 
-                    var status = _server.Api.Account.Register(nickname, password, "no");
-                    if(status)
+                    var user = _server.Api.Account.Register(nickname, password, "no");
+                    if(user != null)
                     {
                         result.Status = true;
                         result.Nickname = nickname;
                         result.Password = password;
                         result.Token = "tokent";
-                        result.Id = 0;
+                        result.Id = user.UserId;
                         return result;
                     }else
                     {

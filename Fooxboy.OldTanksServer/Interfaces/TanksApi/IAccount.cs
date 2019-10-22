@@ -7,7 +7,7 @@ namespace Fooxboy.OldTanksServer.Interfaces.TanksApi
 {
     public interface IAccount
     {
-        bool Register(string nickname, string password, string email);
+        User Register(string nickname, string password, string email);
         bool CheckRegister(long userId);
         bool CheckRegister(string nickname);
         string GetNicknameFromId(long userId);

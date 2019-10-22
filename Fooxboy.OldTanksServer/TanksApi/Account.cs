@@ -45,27 +45,28 @@ namespace Fooxboy.OldTanksServer.TanksApi
             using var db = new ServerDB();
             return db.Users.Single(u => u.UserId == userId);
         }
-        public bool Register(string nickname, string password, string email)
+        public User Register(string nickname, string password, string email)
         {
             using var db = new ServerDB();
             try
             {
-                db.Users.Add(new User()
+                var user = new User()
                 {
                     Nickname = nickname,
                     Email = email,
                     IsBanned = false,
                     IsSpector = false,
                     Password = password,
-                    UserId = 1
-                });
+                    UserId = db.Users.Count()
+                };
+                db.Users.Add(user);
                 db.SaveChanges();
-                return true;
+                return user;
             }
             catch (Exception e)
             {
                 //TODO: добавить агрументы.
-                return false;
+                return null;
             }
         }
 
