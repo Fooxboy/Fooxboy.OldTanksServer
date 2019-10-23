@@ -62,9 +62,7 @@ namespace Fooxboy.OldTanksServer
                         var message = $"error;{result.Error};";
                         var data = Encoding.Unicode.GetBytes(message);
                         socket.Send(data);
-                        
                     }
-
                 }
             });
         }
