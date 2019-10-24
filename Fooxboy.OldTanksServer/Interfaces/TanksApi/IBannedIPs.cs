@@ -7,11 +7,11 @@ namespace Fooxboy.OldTanksServer.Interfaces.TanksApi
 {
     public interface IBannedIPs
     {
-        public bool CheckBan(string ip);
-        public bool Ban(string ip, string reason, string nickname = "Неавторизован.");
+        bool CheckBan(string ip);
+        bool Ban(string ip, string reason, string nickname = "Неавторизован.");
 
-        public BannedIp GetBan(string ip);
-        public List<BannedIp> GetListBans(int count = 0);
+        BannedIp GetBan(string ip);
+        List<BannedIp> GetListBans(int count = 0);
 
     }
 }
