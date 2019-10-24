@@ -5,6 +5,7 @@ using Fooxboy.OldTanksServer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,6 +46,7 @@ namespace Fooxboy.OldTanksServer
         {
             Task.Run(() =>
             {
+                _logger.Info($"Игрок с IP:{((IPEndPoint)socket.RemoteEndPoint).Address} подключился к серверу.");
                 if (request.Split(";")[0] == "login")
                 {
                     var result = new Login(socket, this).Execute(request.Split(";").ToList());
