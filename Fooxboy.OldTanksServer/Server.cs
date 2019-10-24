@@ -14,27 +14,27 @@ namespace Fooxboy.OldTanksServer
 {
     public class Server
     {
-        private readonly ILoggerServer _logger;
+        public readonly ILoggerServer Logger;
         private readonly string _ip;
         private readonly int _port;
         public static readonly List<IRequest> RequestsCommands = new List<IRequest>();
         public List<User> OnlineUsers { get; }
-        public List<Lobby> Lobbys { get; }
+        public List<Lobby> Lobbies { get; }
         public Api Api { get; }
         public Server(ILoggerServer logger, string ip, int port)
         {
-            this._logger = logger;
+            this.Logger = logger;
             this._ip = ip;
             this._port = port;
-            Api = new Api();
+            Api = new Api(this);
             OnlineUsers = new List<User>();
-            Lobbys = new List<Lobby>();
+            Lobbies = new List<Lobby>();
         }
 
         public void Start()
         {
             Console.WriteLine("Old Tanks Server 2019 by Fooxboy");
-            _logger.Info("Запуск сервера...");
+            Logger.Info("Запуск сервера...");
             HullHelper.GetHelper().InitHulls();
             TurretHelper.GetHelper().InitTurrets();
             ColormapHelper.GetHelper().InitColormaps();
@@ -50,14 +50,14 @@ namespace Fooxboy.OldTanksServer
                 var isBanned = Api.BannedIP.CheckBan(userIp.ToString());
                 if(isBanned)
                 {
-                    _logger.Info($"[CONNECT]=> Игрок с IP:{userIp} не смог подключился к серверу, потому что его IP заблокирован.");
+                    Logger.Info($"[CONNECT]=> Игрок с IP:{userIp} не смог подключился к серверу, потому что его IP заблокирован.");
                     var message = $"error;Ваш IP адрес заблокирован.;";
                     var data = Encoding.Unicode.GetBytes(message);
                     socket.Send(data);
 
                     try
                     {
-                        _logger.Info($"Пользователь c IP:{userIp} отключен от сервера.");
+                        Logger.Info($"Пользователь c IP:{userIp} отключен от сервера.");
                        
                         socket.Shutdown(SocketShutdown.Both);
                         socket.Close();
@@ -66,12 +66,12 @@ namespace Fooxboy.OldTanksServer
                     catch (Exception e)
                     {
                         socket.Dispose();
-                        _logger.Error($"Ошибка при отключении клиента от сервера: \n {e}");
+                        Logger.Error($"Ошибка при отключении клиента от сервера: \n {e}");
                     }
                     return;
                 }
 
-                _logger.Info($"[CONNECT]=> Игрок с IP:{userIp} подключился к серверу.");
+                Logger.Info($"[CONNECT]=> Игрок с IP:{userIp} подключился к серверу.");
                 if (request.Split(";")[0] == "login")
                 {
                     var result = new Login(socket, this).Execute(request.Split(";").ToList());
@@ -80,8 +80,8 @@ namespace Fooxboy.OldTanksServer
                         var user = Api.Account.GetUserFromId(result.Id);
                         var garage = Api.Garage.GetGarageFromId(result.Id);
                         this.OnlineUsers.Add(user);
-                        var lobby = new Lobby(user, garage, socket, _logger);
-                        Lobbys.Add(lobby);
+                        var lobby = new Lobby(user, garage, socket, Logger);
+                        Lobbies.Add(lobby);
                         lobby.LoadLobby();
                         lobby.UserDisconnected += ClientDisonnect;
                     }else
@@ -98,16 +98,16 @@ namespace Fooxboy.OldTanksServer
         {
             try
             {
-                _logger.Info($"Пользователь {lobby.User.Nickname} отключился от сервера.");
+                Logger.Info($"Пользователь {lobby.User.Nickname} отключился от сервера.");
                 OnlineUsers.Remove(lobby.User);
-                Lobbys.Remove(lobby);
+                Lobbies.Remove(lobby);
                 lobby.Socket.Shutdown(SocketShutdown.Both);
                 lobby.Socket.Close();
                 lobby.Socket.Dispose();
             }catch(Exception e)
             {
                 lobby.Socket.Dispose();
-                _logger.Error($"Ошибка при отключении клиента от сервера: \n {e}");
+                Logger.Error($"Ошибка при отключении клиента от сервера: \n {e}");
             }
         }
     }

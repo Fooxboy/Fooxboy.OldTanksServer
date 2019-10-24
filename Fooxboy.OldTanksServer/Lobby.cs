@@ -52,6 +52,11 @@ namespace Fooxboy.OldTanksServer
             
         }
 
+        public void DisconectUser()
+        {
+            UserDisconnected?.Invoke(this);
+        }
+
         public void ListerNewRequest()
         {
             while(UserIsConnected)
