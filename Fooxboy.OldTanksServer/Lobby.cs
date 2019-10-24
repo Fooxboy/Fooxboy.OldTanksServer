@@ -23,6 +23,7 @@ namespace Fooxboy.OldTanksServer
 
         public Lobby(User currentUser, Garage garage, Socket socket, ILoggerServer logger):base(socket)
         {
+            if (currentUser is null || garage is null || socket is null || logger is null) throw new ArgumentNullException("Ни одно из переданных параметров конструктору Lobby не может быть null");
             this.User = currentUser;
             this.Socket = socket;
             this.Garage = garage;
@@ -33,12 +34,22 @@ namespace Fooxboy.OldTanksServer
 
         public void LoadLobby()
         {
-            Task.Run(()=> ListerNewRequest());
-            Task.Run(() => CheckDisconnectUser());
-            var message =
-                $"lobby;{User.Nickname};{Garage.Crystalls};{Garage.Score};{HullHelper.GetHelper().GetCurrentHull(Garage.CurrentHull)};{TurretHelper.GetHelper().GetCurrentTurret(Garage.CurrentTurret)};{Garage.CurrentColormap.Id}";
-            this.Send(message);
-            if (User.IsSpector) this.Send("spector;");
+            try
+            {
+                Task.Run(() => ListerNewRequest());
+                Task.Run(() => CheckDisconnectUser());
+                var message =
+                    $"lobby;{User.Nickname};{Garage.Crystalls};{Garage.Score};{HullHelper.GetHelper().GetCurrentHull(Garage.CurrentHull)};{TurretHelper.GetHelper().GetCurrentTurret(Garage.CurrentTurret)};{Garage.CurrentColormap.Id}";
+                this.Send(message);
+                if (User.IsSpector) this.Send("spector;");
+                Logger.Info($"[LOBBY]=> Пользователь {User.Nickname} зашел в игру.");
+            }catch(Exception e)
+            {
+                Logger.Error($"[LOAD LOBBY]=> Ошибка при загрузке лобби:\n {e}");
+                Logger.Trace("Отключаем ошибочное лобби...");
+                UserDisconnected?.Invoke(this);
+            }
+            
         }
 
         public void ListerNewRequest()
@@ -70,6 +81,7 @@ namespace Fooxboy.OldTanksServer
                 try
                 {
                     this.Send("ping;connect;");
+                    if (!Socket.Connected) throw new Exception("Пользователь отключен.");
                 }catch(Exception)
                 {
                     UserDisconnected?.Invoke(this);
