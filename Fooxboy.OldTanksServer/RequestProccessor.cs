@@ -20,8 +20,15 @@ namespace Fooxboy.OldTanksServer
             var array = message.Split(";");
             var requests = Server.RequestsCommands;
             var request = requests.SingleOrDefault(r => r.Trigger == array[0]);
-            if (request is null) return "error;";
-            return request.Execute(array.ToList(), _lobby);
+            if (request is null) return "error;Клиент послал неизвестную команду;";
+            try
+            {
+                var result = request.Execute(array.ToList(), _lobby);
+            }catch(Exception e)
+            {
+                return $"error;Ошибка выполнения команды - {e.Message};";
+            }
+            
         }
     }
 }

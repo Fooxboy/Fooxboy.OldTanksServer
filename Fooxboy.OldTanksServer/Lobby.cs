@@ -73,7 +73,8 @@ namespace Fooxboy.OldTanksServer
                 while (Socket.Available > 0);
                 var message = builder.ToString();
                 var response = _proccessor.Start(message);
-                this.Send(response);
+                if(response != null) this.Send(response);
+
             }
             
         }
