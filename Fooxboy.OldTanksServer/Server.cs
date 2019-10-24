@@ -46,7 +46,10 @@ namespace Fooxboy.OldTanksServer
         {
             Task.Run(() =>
             {
-                _logger.Info($"Игрок с IP:{((IPEndPoint)socket.RemoteEndPoint).Address} подключился к серверу.");
+                var userIp = ((IPEndPoint)socket.RemoteEndPoint).Address;
+                var isBanned = Api.BannedIP.CheckBan(userIp.ToString());
+
+                _logger.Info($"Игрок с IP:{userIp} подключился к серверу.");
                 if (request.Split(";")[0] == "login")
                 {
                     var result = new Login(socket, this).Execute(request.Split(";").ToList());
@@ -71,10 +74,19 @@ namespace Fooxboy.OldTanksServer
 
         private void ClientDisonnect(Lobby lobby)
         {
-            _logger.Info($"Пользователь {lobby.User.Nickname} отключился от сервера.");
-            OnlineUsers.Remove(lobby.User);
-            Lobbys.Remove(lobby);
-            //throw new NotImplementedException();
+            try
+            {
+                _logger.Info($"Пользователь {lobby.User.Nickname} отключился от сервера.");
+                OnlineUsers.Remove(lobby.User);
+                Lobbys.Remove(lobby);
+                lobby.Socket.Shutdown(SocketShutdown.Both);
+                lobby.Socket.Close();
+                lobby.Socket.Dispose();
+            }catch(Exception e)
+            {
+                lobby.Socket.Dispose();
+                _logger.Error($"Ошибка при отключении клиента от сервера: \n {e}");
+            }
         }
     }
 }
