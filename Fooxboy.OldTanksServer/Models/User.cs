@@ -14,6 +14,8 @@ namespace Fooxboy.OldTanksServer.Models
         public string Password { get; set; }
         public string Email { get; set; }
         public bool IsBanned { get; set; }
+        public bool IsBannedChat { get; set; }
         public bool IsSpector { get; set; }
+        public long TypeUser { get; set; }
     }
 }
