@@ -48,8 +48,30 @@ namespace Fooxboy.OldTanksServer
             {
                 var userIp = ((IPEndPoint)socket.RemoteEndPoint).Address;
                 var isBanned = Api.BannedIP.CheckBan(userIp.ToString());
+                if(isBanned)
+                {
+                    _logger.Info($"[CONNECT]=> Игрок с IP:{userIp} не смог подключился к серверу, потому что его IP заблокирован.");
+                    var message = $"error;Ваш IP адрес заблокирован.;";
+                    var data = Encoding.Unicode.GetBytes(message);
+                    socket.Send(data);
 
-                _logger.Info($"Игрок с IP:{userIp} подключился к серверу.");
+                    try
+                    {
+                        _logger.Info($"Пользователь c IP:{userIp} отключен от сервера.");
+                       
+                        socket.Shutdown(SocketShutdown.Both);
+                        socket.Close();
+                        socket.Dispose();
+                    }
+                    catch (Exception e)
+                    {
+                        socket.Dispose();
+                        _logger.Error($"Ошибка при отключении клиента от сервера: \n {e}");
+                    }
+                    return;
+                }
+
+                _logger.Info($"[CONNECT]=> Игрок с IP:{userIp} подключился к серверу.");
                 if (request.Split(";")[0] == "login")
                 {
                     var result = new Login(socket, this).Execute(request.Split(";").ToList());
