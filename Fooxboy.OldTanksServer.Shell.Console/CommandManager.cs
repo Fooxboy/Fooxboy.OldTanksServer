@@ -22,6 +22,7 @@ namespace Fooxboy.OldTanksServer.Shell.Console
         {
             _commands.Add(new HelpCommand(_api, _logger));
             _commands.Add(new SayCommand(_api));
+            _commands.Add(new OnlineUsersCommand(_api, _logger));
         }
 
         public void StartExecute(string text)
