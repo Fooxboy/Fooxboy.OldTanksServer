@@ -36,5 +36,10 @@ namespace Fooxboy.OldTanksServer.Shell.Console
             Write("WARNING", text);
             System.Console.ResetColor();
         }
+
+        public void Shell(object text)
+        {
+            Write("SHELL", text);
+        }
     }
 }

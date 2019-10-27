@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fooxboy.OldTanksServer.Interfaces;
+using System;
 
 namespace Fooxboy.OldTanksServer.Shell.Console
 {
@@ -6,11 +7,20 @@ namespace Fooxboy.OldTanksServer.Shell.Console
     {
         static void Main(string[] args)
         {
-            System.Console.WriteLine("Hello World!");
-            var server = new Server(new LoggerServer(), "localhost", 2535);
+            System.Console.WriteLine("Old Tanks Shell by Fooxboy");
+            ILoggerServer logger = new LoggerServer();
+            var server = new Server(logger, "localhost", 2535);
+            var cm = new CommandManager(server.Api, logger);
+            cm.Init();
             server.Start();
             System.Console.WriteLine("Ready.");
-            System.Console.ReadLine();
+            while(true)
+            {
+                logger.Shell("Чтобы узнать доступные консольные команды, напишите help.");
+                var text = System.Console.ReadLine();
+                cm.StartExecute(text);
+            }
+            
         }
     }
 }

@@ -26,5 +26,6 @@ namespace Fooxboy.OldTanksServer.Interfaces
         /// </summary>
         /// <param name="text">Текст ошибки</param>
         void Error(object text);
+        void Shell(object text);
     }
 }
