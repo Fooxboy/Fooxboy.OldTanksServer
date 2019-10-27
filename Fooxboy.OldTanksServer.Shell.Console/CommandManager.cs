@@ -1,4 +1,5 @@
 ﻿using Fooxboy.OldTanksServer.Interfaces;
+using Fooxboy.OldTanksServer.Shell.Console.ConsoleCommands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,8 @@ namespace Fooxboy.OldTanksServer.Shell.Console
         }
         public void Init()
         {
-
+            _commands.Add(new HelpCommand(_api, _logger));
+            _commands.Add(new SayCommand(_api));
         }
 
         public void StartExecute(string text)

@@ -77,7 +77,7 @@ namespace Fooxboy.OldTanksServer.TanksApi
             message.Rank = 26;
             message.MessageId = _chat.Messages.Count();
             SendToAll(message);
-            _logger.Info("[CHAT]=> Сообщение отправлено.");
+            _logger.Shell("[CHAT]=> Сообщение отправлено.");
             return message;
         }
     }
