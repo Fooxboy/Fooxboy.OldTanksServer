@@ -56,6 +56,167 @@ namespace Fooxboy.OldTanksServer.Helpers
             return resultString;
         }
 
+        public ITurret GetTurretFromId(int id)
+        {
+            //Пиздец дикий говнокод, но я не виноват, что клиент писал ебанутый имбицил, и теперь id предметов разные.
+            var tId = 0;
+            var lvl = 0;
+
+
+
+            if (id == 0)
+            {
+                lvl = 0;
+            }
+            else if (id == 1)
+            {
+                lvl = 1;
+            }
+            else if (id == 2)
+            {
+                lvl = 2;
+            }
+            else if (id == 3)
+            {
+                lvl = 3;
+            }
+            else if (id == 4)
+            {
+                tId = 1;
+                lvl = 0;
+            }
+            else if (id == 5)
+            {
+                tId = 1;
+                lvl = 1;
+            }
+            else if (id == 6)
+            {
+                tId = 1;
+                lvl = 2;
+            }
+            else if (id == 7)
+            {
+                tId = 1;
+                lvl = 3;
+            }
+            else if (id == 8)
+            {
+                tId = 2;
+                lvl = 0;
+            }
+            else if (id == 9)
+            {
+                tId = 2;
+                lvl = 1;
+            }
+            else if (id == 10)
+            {
+                tId = 2;
+                lvl = 2;
+            }
+            else if (id == 11)
+            {
+                tId = 2;
+                lvl = 3;
+            }
+            else if (id == 12)
+            {
+                tId = 3;
+                lvl = 0;
+            }
+            else if (id == 13)
+            {
+                tId = 3;
+                lvl = 1;
+            }
+            else if (id == 14)
+            {
+                tId = 3;
+                lvl = 2;
+            }
+            else if (id == 15)
+            {
+                tId = 3;
+                lvl = 3;
+            }
+            else if (id == 16)
+            {
+                tId = 4;
+                lvl = 0;
+            }
+            else if (id == 17)
+            {
+                tId = 4;
+                lvl = 1;
+            }
+            else if (id == 18)
+            {
+                tId = 4;
+                lvl = 2;
+            }
+            else if (id == 19)
+            {
+                tId = 4;
+                lvl = 3;
+            }
+            else if (id == 20)
+            {
+                tId = 5;
+                lvl = 0;
+            }
+            else if (id == 21)
+            {
+                tId = 5;
+                lvl = 1;
+            }
+            else if (id == 22)
+            {
+                tId = 5;
+                lvl = 2;
+            }
+            else if (id == 23)
+            {
+                tId = 5;
+                lvl = 3;
+            } else if (id == 24)
+            {
+                tId = 6;
+                lvl = 0;
+            } else if (id == 25)
+            {
+                tId = 6;
+                lvl = 1;
+            } else if (id == 26)
+            {
+                tId = 6;
+                lvl = 2;
+            }else if(id == 27)
+            {
+                tId = 6;
+                lvl = 3;
+            }else if(id == 28)
+            {
+                tId = 7;
+                lvl = 0;
+            }else if(id == 29)
+            {
+                tId = 7;
+                lvl = 1;
+            }else if(id == 30)
+            {
+                tId = 7;
+                lvl = 2;
+            }else if(id == 31)
+            {
+                tId = 7;
+                lvl = 3;
+            }
+
+            var turret = Turrets.Single(t => t.Id == tId);
+            if (turret != null) turret.Level = lvl;
+        }
+
         public long GetCurrentTurret(ITurret turret) => (turret.Level.Value + turret.Id) + turret.Id * 3;
     }
 }
