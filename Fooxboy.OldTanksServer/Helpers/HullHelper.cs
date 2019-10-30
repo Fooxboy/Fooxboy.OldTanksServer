@@ -171,7 +171,6 @@ namespace Fooxboy.OldTanksServer.Helpers
             var hull = Hulls.Single(h => h.Id == id);
             if (hull != null) hull.Level = level;
             return hull;
-            //var a = id / 3;
         }
 
         public string ConvertListModelToListString(List<IHull> models)

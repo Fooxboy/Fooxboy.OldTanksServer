@@ -38,6 +38,7 @@ namespace Fooxboy.OldTanksServer
             HullHelper.GetHelper().InitHulls();
             TurretHelper.GetHelper().InitTurrets();
             ColormapHelper.GetHelper().InitColormaps();
+            NumericHelper.GetHelper().InitNumerics();
             var listener = new SocketConnectListener(_ip, _port, Logger);
             listener.NewConnectEvent += NewConnect;
         }

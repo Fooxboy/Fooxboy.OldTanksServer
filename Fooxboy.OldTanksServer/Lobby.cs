@@ -13,22 +13,30 @@ namespace Fooxboy.OldTanksServer
 {
     public class Lobby: SocketHelper
     {
-        public readonly User User;
-        public readonly Garage Garage;
+        private readonly long _userId;
+        public User User
+        {
+            get => Api.Account.GetUserFromId(_userId);
+        }
+        public Garage Garage
+        {
+            get => Api.Garage.GetGarageFromId(_userId);
+        }
+        public readonly Api Api;
         public readonly Socket Socket;
         private readonly RequestProccessor _proccessor;
         public readonly ILoggerServer Logger;
         public event Action<Lobby> UserDisconnected;
         public bool UserIsConnected { get; set; }
 
-        public Lobby(User currentUser, Garage garage, Socket socket, ILoggerServer logger):base(socket)
+        public Lobby(long userid, Socket socket, ILoggerServer logger, Api api):base(socket)
         {
-            if (currentUser is null || garage is null || socket is null || logger is null) throw new ArgumentNullException("Ни одно из переданных параметров конструктору Lobby не может быть null");
-            this.User = currentUser;
+            if (api is null || socket is null || logger is null) throw new ArgumentNullException("Ни одно из переданных параметров конструктору Lobby не может быть null");
+            this.Api = api;
             this.Socket = socket;
-            this.Garage = garage;
             this._proccessor = new RequestProccessor(socket, this);
             this.Logger = logger;
+            _userId = userid;
             UserIsConnected = true;
         }
 
