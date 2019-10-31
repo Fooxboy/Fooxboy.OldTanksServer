@@ -71,7 +71,7 @@ namespace Fooxboy.OldTanksServer.Core
             }
 
             _api.Garage.SetGarage(garage);
-            return $"sett;{lobby.User.Nickname}";
+            return $"sett;{lobby.User.Nickname};{garage.Crystalls};{garage.Score};{HullHelper.GetHelper().GetCurrentHull(garage.CurrentHull)};{TurretHelper.GetHelper().GetCurrentTurret(garage.CurrentTurret)};{garage.CurrentColormap.Id};";
         }
     }
 }

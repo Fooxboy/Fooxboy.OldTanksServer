@@ -47,7 +47,7 @@ namespace Fooxboy.OldTanksServer
                 Task.Run(() => ListerNewRequest());
                 Task.Run(() => CheckDisconnectUser());
                 var message =
-                    $"lobby;{User.Nickname};{Garage.Crystalls};{Garage.Score};{HullHelper.GetHelper().GetCurrentHull(Garage.CurrentHull)};{TurretHelper.GetHelper().GetCurrentTurret(Garage.CurrentTurret)};{Garage.CurrentColormap.Id}";
+                    $"lobby;{User.Nickname};{Garage.Crystalls};{Garage.Score};{HullHelper.GetHelper().GetCurrentHull(Garage.CurrentHull)};{TurretHelper.GetHelper().GetCurrentTurret(Garage.CurrentTurret)};{Garage.CurrentColormap.Id};";
                 this.Send(message);
                 if (User.IsSpector) this.Send("spector;");
                 Logger.Info($"[LOBBY]=> Пользователь {User.Nickname} зашел в игру.");
