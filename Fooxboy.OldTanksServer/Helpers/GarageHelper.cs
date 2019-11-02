@@ -37,17 +37,37 @@ namespace Fooxboy.OldTanksServer.Helpers
 
             foreach(var turret in TurretHelper.GetHelper().Turrets)
             {
-                int isBuy = garage.Turrets.Any(t => t.Id == turret.Id) ? 1 : 0;
-                var idTurret = TurretHelper.GetHelper().GetCurrentTurret(turret);
-                var isAvailable = rank >= turret.Ranks[Convert.ToInt32(turret.Id)] ? 1 : 0;
-                var isCurrentTurret = garage.CurrentTurret.Id == turret.Id ? 1 : 0; ;
-                turretsList.Add($"{isBuy};{idTurret};{isAvailable};{idTurret};{isCurrentTurret}");
+                var isBuy = garage.Turrets.Any(t => t.Id == turret.Id) ? 1 : 0;
+                var levelValue = garage.Turrets.Any(t => t.Id == turret.Id) ? garage.Turrets.Single(t => t.Id == turret.Id).Level : -1;
+                var isAvailable = garage.Turrets.Any(t => t.Id == turret.Id) ? (rank >= turret.Ranks[Convert.ToInt32(garage.Turrets.Single(t => t.Id == turret.Id).Level)] ? 1 : 0) : (rank >= turret.Ranks[0] ? 1 : 0);
+                var isCurrentTurret = garage.CurrentTurret.Id == turret.Id ? 1 : 0;
+                turretsList.Add($"{isBuy};{levelValue};{isAvailable};{levelValue};{isCurrentTurret}");
             }
 
             foreach(var hull in HullHelper.GetHelper().Hulls)
             {
-
+                var isBuy = garage.Hulls.Any(h => h.Id == hull.Id) ? 1 : 0;
+                var level = garage.Hulls.Any(h => h.Id == hull.Id) ? garage.Hulls.Single(h => h.Id == hull.Id).Level : -1;
+                var isAvailable = garage.Hulls.Any(h => h.Id == hull.Id) ? (rank >= hull.Ranks[Convert.ToInt32(garage.Hulls.Single(h=> h.Id == h.Id).Level)]? 1 : 0) : (rank>= hull.Ranks[0]? 1:0);
+                var isCurrentHull = garage.CurrentHull.Id == hull.Id ? 1 : 0;
+                hullsList.Add($"{isBuy};{level};{isAvailable};{level};{isCurrentHull}");
             }
+
+            foreach(var colormap in ColormapHelper.GetHelper().Colormaps)
+            {
+                var isBuy = garage.Colormaps.Any(c=> c.Id == colormap.Id)? 1:0;
+                var isAvailable = rank >= colormap.Rank ? 1 : 0;
+                var isCurrentColormap = garage.CurrentColormap.Id == colormap.Id ? 1 : 0;
+
+                colormapList.Add($"{isBuy};{colormap.Id};{isAvailable}:{isCurrentColormap}");
+            }
+
+            str = $"garr;5;8;7;56;";
+            foreach(var num in numericsList) str += num + ";";
+            foreach (var turret in turretsList) str += turret + ";";
+            foreach (var hull in hullsList) str += hull + ";";
+
+            return str;
         }
     }
 }
