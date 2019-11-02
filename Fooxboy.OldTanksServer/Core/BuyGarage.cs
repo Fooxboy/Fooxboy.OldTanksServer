@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Fooxboy.OldTanksServer.Core
 {
-    public class BuyGarage : IRequest
+    public class BuyGarage: IRequest
     {
         private readonly Api _api;
         public BuyGarage(Api api)
@@ -71,7 +71,8 @@ namespace Fooxboy.OldTanksServer.Core
             }
 
             _api.Garage.SetGarage(garage);
-            //return garage;
+            var garStr = GarageHelper.GetHelper().GetGarageString(lobby.Garage);
+            lobby.Send(garStr);
             return $"sett;{lobby.User.Nickname};{garage.Crystalls};{garage.Score};{HullHelper.GetHelper().GetCurrentHull(garage.CurrentHull)};{TurretHelper.GetHelper().GetCurrentTurret(garage.CurrentTurret)};{garage.CurrentColormap.Id};";
         }
     }
