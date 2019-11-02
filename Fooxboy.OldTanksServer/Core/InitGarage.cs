@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fooxboy.OldTanksServer.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,7 +11,8 @@ namespace Fooxboy.OldTanksServer.Core
 
         public string Execute(List<string> message, Lobby lobby)
         {
-            throw new NotImplementedException();
+            var strGarage = GarageHelper.GetHelper().GetGarageString(lobby.Garage);
+            return strGarage;
         }
     }
 }
