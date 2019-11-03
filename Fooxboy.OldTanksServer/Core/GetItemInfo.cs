@@ -43,7 +43,7 @@ namespace Fooxboy.OldTanksServer.Core
 
             if(type == "turret")
             {
-
+                var turret = TurretHelper.GetHelper().Turrets.Single(t => t.Id == itemId);
             }
             
         }
