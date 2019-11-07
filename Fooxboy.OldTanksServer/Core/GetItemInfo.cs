@@ -44,6 +44,21 @@ namespace Fooxboy.OldTanksServer.Core
             if(type == "turret")
             {
                 var turret = TurretHelper.GetHelper().Turrets.Single(t => t.Id == itemId);
+
+                if(garage.Turrets.Any(t=> t.Id == turret.Id))
+                {
+                    var turretUser = garage.Turrets.Single(t => t.Id == turret.Id);
+                    var isCurrent = garage.CurrentTurret.Id == turret.Id ? 1 : 0;
+
+                    if (turretUser.Level == 3) return $"gi;t;{itemId};8;{isCurrent};";
+                    //todo: есть.
+                }else
+                {
+                    if (garage.Crystalls >= turret.Prices[0] && userRank >= turret.Ranks[0]) return $"gi;t;{itemId};0;{turret.Prices[0]}";
+                    if(garage.Crystalls < turret.Prices[0] && userRank >= turret.Ranks[0]) return $"gi;t;{itemId};1;{turret.Prices[0]}";
+                    if (garage.Crystalls >= turret.Prices[0] && userRank < turret.Ranks[0]) return $"gi;t;{itemId};2;{turret.Prices[0]};{turret.Ranks[0]}";
+                    if (garage.Crystalls < turret.Prices[0] && userRank < turret.Ranks[0]) return $"gi;t;{itemId};3;{turret.Prices[0]};{turret.Ranks[0]}";
+                }
             }
             
         }
